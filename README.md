@@ -8,7 +8,8 @@ Este projeto nasceu para acelerar o desenvolvimento iterativo, especialmente ao 
 
 * Cria automaticamente a estrutura de diretórios em um diretório de destino especificado.
 * Distribui o código-fonte para os arquivos corretos a partir de um único arquivo de origem.
-* Protege arquivos sensíveis como `.env` de serem sobrescritos.
+* **Adiciona um carimbo de data/hora** em cada arquivo modificado para controle de versão.
+* **Protege arquivos sensíveis** e de configuração (como `.env` e `PROMPT_TEMPLATE.md`) de serem sobrescritos.
 * Opcionalmente, faz o `git commit` das alterações no repositório de destino com uma mensagem extraída do próprio arquivo de origem.
 
 ## Instalação e Uso

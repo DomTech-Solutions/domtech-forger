@@ -2,12 +2,26 @@ import os
 import re
 import subprocess
 import argparse
+from datetime import datetime
 
 # --- CONFIGURAÇÃO ---
 FILE_HEADER_PATTERN = re.compile(r'## Arquivo: (.*?)\n')
 COMMIT_HEADER_PATTERN = re.compile(r'## Mensagem de Commit:\n')
 # Lista de arquivos e diretórios que não devem ser sobrescritos se já existirem.
 PROTECTED_PATHS = ['.env', 'PROMPT_TEMPLATE.md']
+
+def get_watermark(filepath):
+    """Gera um carimbo de data/hora com o comentário apropriado para o tipo de arquivo."""
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    comment_char = "#"
+
+    file_extension = os.path.splitext(filepath)[1]
+    if file_extension == '.md':
+        return f"<!-- Este arquivo foi gerado/atualizado pelo DomTech Forger em {timestamp} -->\n\n"
+
+    # Padrão para .py, .gitignore, .env e outros
+    return f"{comment_char} Este arquivo foi gerado/atualizado pelo DomTech Forger em {timestamp}\n\n"
+
 
 def run_git_command(command, target_dir):
     """Executa um comando git dentro de um diretório alvo."""
@@ -51,26 +65,27 @@ def apply_updates(source_file, destination_dir, perform_commit):
 
         if file_match:
             relative_path = file_match.group(1).strip()
-            # Constrói o caminho completo dentro do diretório de destino
             full_path = os.path.join(destination_dir, relative_path)
-
             code_content = block[file_match.end():].strip()
 
-            # --- LÓGICA DE PROTEÇÃO DE ARQUIVOS ---
             if relative_path in PROTECTED_PATHS:
                 if os.path.exists(full_path):
                     print(f"⚠️  Arquivo protegido '{full_path}' já existe. Pulando para manter a versão local.")
                     continue
                 else:
-                    print(f"✨  Criando arquivo de exemplo para '{full_path}'. Lembre-se de preenchê-lo.")
+                    print(f"✨  Criando arquivo de exemplo para '{full_path}'.")
 
             try:
                 directory = os.path.dirname(full_path)
                 if directory:
                     os.makedirs(directory, exist_ok=True)
 
+                # Adiciona o carimbo ao conteúdo do arquivo
+                watermark = get_watermark(relative_path)
+                final_content = watermark + code_content
+
                 with open(full_path, 'w', encoding='utf-8') as f:
-                    f.write(code_content)
+                    f.write(final_content)
 
                 print(f"✔️ Arquivo '{full_path}' criado/atualizado com sucesso.")
                 files_created_or_updated += 1
@@ -108,8 +123,8 @@ def main():
     parser.add_argument(
         '--destination',
         type=str,
-        default='.', # Padrão: diretório atual
-        help="Caminho para o diretório do projeto alvo onde as atualizações serão aplicadas. Padrão: diretório atual."
+        default='.',
+        help="Caminho para o diretório do projeto alvo. Padrão: diretório atual."
     )
 
     parser.add_argument(
