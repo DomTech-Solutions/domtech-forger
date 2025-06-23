@@ -7,7 +7,7 @@ import argparse
 FILE_HEADER_PATTERN = re.compile(r'## Arquivo: (.*?)\n')
 COMMIT_HEADER_PATTERN = re.compile(r'## Mensagem de Commit:\n')
 # Lista de arquivos e diretórios que não devem ser sobrescritos se já existirem.
-PROTECTED_PATHS = ['.env']
+PROTECTED_PATHS = ['.env', 'PROMPT_TEMPLATE.md']
 
 def run_git_command(command, target_dir):
     """Executa um comando git dentro de um diretório alvo."""
