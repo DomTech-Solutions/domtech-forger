@@ -1,3 +1,5 @@
+# Este arquivo foi gerado/atualizado pelo DomTech Forger em 2025-06-22 22:41:59
+
 import os
 import re
 import subprocess
@@ -10,17 +12,18 @@ COMMIT_HEADER_PATTERN = re.compile(r'## Mensagem de Commit:\n')
 # Lista de arquivos e diretórios que não devem ser sobrescritos se já existirem.
 PROTECTED_PATHS = ['.env', 'PROMPT_TEMPLATE.md']
 
-def get_watermark(filepath):
-    """Gera um carimbo de data/hora com o comentário apropriado para o tipo de arquivo."""
+def get_watermark(is_special_case=False):
+    """Gera um carimbo de data/hora."""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    comment_char = "#"
+    if is_special_case:
+        # Formato para arquivos sem extensão como LICENSE
+        return f"\n\n# --- \n# Arquivo atualizado pelo DomTech Forger em {timestamp}\n"
+    return f"# Este arquivo foi gerado/atualizado pelo DomTech Forger em {timestamp}\n\n"
 
-    file_extension = os.path.splitext(filepath)[1]
-    if file_extension == '.md':
-        return f"<!-- Este arquivo foi gerado/atualizado pelo DomTech Forger em {timestamp} -->\n\n"
-
-    # Padrão para .py, .gitignore, .env e outros
-    return f"{comment_char} Este arquivo foi gerado/atualizado pelo DomTech Forger em {timestamp}\n\n"
+def get_markdown_watermark():
+    """Gera um carimbo de data/hora específico para Markdown."""
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return f"<!-- Este arquivo foi gerado/atualizado pelo DomTech Forger em {timestamp} -->\n\n"
 
 
 def run_git_command(command, target_dir):
@@ -80,9 +83,18 @@ def apply_updates(source_file, destination_dir, perform_commit):
                 if directory:
                     os.makedirs(directory, exist_ok=True)
 
-                # Adiciona o carimbo ao conteúdo do arquivo
-                watermark = get_watermark(relative_path)
-                final_content = watermark + code_content
+                # Lógica do Carimbo de Data/Hora
+                _, file_extension = os.path.splitext(relative_path)
+
+                if file_extension == '.md':
+                    watermark = get_markdown_watermark()
+                    final_content = watermark + code_content
+                elif not file_extension: # Caso especial para arquivos como LICENSE
+                    watermark = get_watermark(is_special_case=True)
+                    final_content = code_content + watermark
+                else: # Padrão para .py, .gitignore, etc.
+                    watermark = get_watermark()
+                    final_content = watermark + code_content
 
                 with open(full_path, 'w', encoding='utf-8') as f:
                     f.write(final_content)

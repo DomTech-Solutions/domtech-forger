@@ -1,3 +1,5 @@
+<!-- Este arquivo foi gerado/atualizado pelo DomTech Forger em 2025-06-22 22:41:59 -->
+
 # DomTech Forger
 
 **DomTech Forger** é uma ferramenta de linha de comando em Python projetada para automatizar a criação e atualização de projetos de software. Ele lê um único arquivo de texto contendo o código-fonte de múltiplos arquivos e os distribui na estrutura de diretórios correta, além de, opcionalmente, fazer o commit das alterações no Git.
