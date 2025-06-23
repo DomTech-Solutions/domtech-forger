@@ -14,19 +14,3 @@ Se houver uma mensagem de commit sugerida, ela deve estar em seu próprio bloco,
 ## Arquivo: src/main.py
 
 print("Olá, Mundo!")
-
----
-## Arquivo: README.md
-
-# Meu Projeto
-
-Este é um projeto de exemplo.
-
----
-## Mensagem de Commit:
-
-feat: cria estrutura inicial do projeto
-
-Adiciona os arquivos `main.py` e `README.md` para a configuração inicial do projeto.
-```
-"

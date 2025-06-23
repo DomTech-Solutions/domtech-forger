@@ -21,16 +21,21 @@ Este projeto nasceu para acelerar o desenvolvimento iterativo, especialmente ao 
 2.  **Crie um arquivo de atualização** (ex: `politicamente_update.txt`) em qualquer lugar, seguindo o formato especificado em `PROMPT_TEMPLATE.md`.
 
 3.  **Execute o script:**
-    Navegue até a pasta do seu projeto **alvo** (ex: `politicamente-api`) e execute o script `DomTech Forger` a partir de lá, especificando o caminho para o arquivo de atualização.
+    Execute o script `DomTech Forger`, especificando o caminho para o arquivo de atualização e o diretório do seu projeto alvo.
 
     * **Para atualizar e fazer o commit (padrão):**
         ```sh
-        python /caminho/para/domtech-forger/src/domtech_forger/main.py /caminho/para/politicamente_update.txt
+        python /caminho/para/domtech-forger/src/domtech_forger/main.py /caminho/para/politicamente_update.txt --destination /caminho/para/seu/projeto/alvo
+        ```
+
+    * **Se você estiver dentro da pasta do projeto alvo, pode simplificar:**
+        ```sh
+        python /caminho/para/domtech-forger/src/domtech_forger/main.py /caminho/para/politicamente_update.txt --destination .
         ```
 
     * **Para apenas atualizar os arquivos, sem fazer o commit:**
         ```sh
-        python /caminho/para/domtech-forger/src/domtech_forger/main.py /caminho/para/politicamente_update.txt --commit=false
+        python /caminho/para/domtech-forger/src/domtech_forger/main.py /caminho/para/politicamente_update.txt --destination . --commit=false
         ```
     *Obs: Uma forma mais avançada seria adicionar a pasta do `domtech-forger` ao seu `PATH` do sistema para poder chamá-lo de qualquer lugar.*
 
