@@ -1,1 +1,0 @@
-# Este arquivo pode ficar vazio. Ele serve para que o Python trate o diretório 'domtech_forger' como um pacote.
