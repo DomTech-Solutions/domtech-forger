@@ -6,7 +6,7 @@ Use o seguinte template ao instruir um Large Language Model (LLM) para gerar o c
 
 "Por favor, gere a estrutura completa de arquivos para o projeto [NOME DO PROJETO]. A saída deve ser um único bloco de código. Cada arquivo deve ser precedido por um cabeçalho no formato `## Arquivo: caminho/completo/do/arquivo.ext` e o conteúdo de cada arquivo deve ser separado por uma linha contendo apenas `---`.
 
-Se houver uma mensagem de commit sugerida, ela deve estar em seu próprio bloco, precedida por `## Mensagem de Commit:` e separada por `---`."
+Se houver uma mensagem de commit sugerida, ela deve estar em seu próprio bloco, precedida por `## Mensagem de Commit:` e separada por `---`.
 
 **Exemplo de Estrutura:**
 
@@ -29,3 +29,4 @@ feat: cria estrutura inicial do projeto
 
 Adiciona os arquivos `main.py` e `README.md` para a configuração inicial do projeto.
 ```
+"
