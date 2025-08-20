@@ -1,4 +1,4 @@
-<!-- Este arquivo foi gerado/atualizado pelo DomTech Forger em 2025-06-22 22:41:59 -->
+<!-- Este arquivo foi gerado/atualizado pelo DomTech Forger em 2025-08-20 00:35:46 -->
 
 # DomTech Forger
 
@@ -8,11 +8,12 @@ Este projeto nasceu para acelerar o desenvolvimento iterativo, especialmente ao 
 
 ## Funcionalidades
 
-* Cria automaticamente a estrutura de diretórios em um diretório de destino especificado.
-* Distribui o código-fonte para os arquivos corretos a partir de um único arquivo de origem.
-* **Adiciona um carimbo de data/hora** em cada arquivo modificado para controle de versão.
-* **Protege arquivos sensíveis** e de configuração (como `.env` e `PROMPT_TEMPLATE.md`) de serem sobrescritos.
-* Opcionalmente, faz o `git commit` das alterações no repositório de destino com uma mensagem extraída do próprio arquivo de origem.
+*   Cria automaticamente a estrutura de diretórios em um diretório de destino especificado.
+*   Distribui o código-fonte para os arquivos corretos a partir de um único arquivo de origem (`--apply`).
+*   **Consolida um projeto existente** em um único arquivo de texto, pronto para contextualizar LLMs (`--consolidate`).
+*   **Adiciona um carimbo de data/hora** em cada arquivo modificado para controle de versão.
+*   **Protege arquivos sensíveis** e de configuração (como `.env` e `PROMPT_TEMPLATE.md`) de serem sobrescritos.
+*   Opcionalmente, faz o `git commit` das alterações no repositório de destino com uma mensagem extraída do próprio arquivo de origem.
 
 ## Instalação e Uso
 
@@ -24,22 +25,30 @@ Este projeto nasceu para acelerar o desenvolvimento iterativo, especialmente ao 
 2.  **Crie um arquivo de atualização** (ex: `politicamente_update.txt`) em qualquer lugar, seguindo o formato especificado em `PROMPT_TEMPLATE.md`.
 
 3.  **Execute o script:**
-    Execute o script `DomTech Forger`, especificando o caminho para o arquivo de atualização e o diretório do seu projeto alvo.
+    Execute o script `DomTech Forger`, especificando o modo de operação e os parâmetros necessários.
 
-    * **Para atualizar e fazer o commit (padrão):**
-        ```sh
-        python /caminho/para/domtech-forger/src/domtech_forger/main.py /caminho/para/politicamente_update.txt --destination /caminho/para/seu/projeto/alvo
-        ```
-
-    * **Se você estiver dentro da pasta do projeto alvo, pode simplificar:**
-        ```sh
-        python /caminho/para/domtech-forger/src/domtech_forger/main.py /caminho/para/politicamente_update.txt --destination .
-        ```
-
-    * **Para apenas atualizar os arquivos, sem fazer o commit:**
-        ```sh
-        python /caminho/para/domtech-forger/src/domtech_forger/main.py /caminho/para/politicamente_update.txt --destination . --commit=false
-        ```
+    *   **Modo de Aplicação (`--apply`):** Para distribuir o código de um arquivo de origem para um projeto alvo.
+        *   **Para atualizar e fazer o commit (padrão):**
+            ```sh
+            python /caminho/para/domtech-forger/src/domtech_forger/main.py --apply --source-file /caminho/para/politicamente_update.txt --destination /caminho/para/seu/projeto/alvo
+            ```
+        *   **Se você estiver dentro da pasta do projeto alvo, pode simplificar:**
+            ```sh
+            python /caminho/para/domtech-forger/src/domtech_forger/main.py --apply --source-file /caminho/para/politicamente_update.txt --destination .
+            ```
+        *   **Para apenas atualizar os arquivos, sem fazer o commit:**
+            ```sh
+            python /caminho/para/domtech-forger/src/domtech_forger/main.py --apply --source-file /caminho/para/politicamente_update.txt --destination . --commit=false
+            ```
+    *   **Modo de Consolidação (`--consolidate`):** Para ler um diretório de projeto e gerar um único arquivo de saída.
+        *   **Exemplo de uso:**
+            ```sh
+            python /caminho/para/domtech-forger/src/domtech_forger/main.py --consolidate --source-directory /caminho/para/seu/projeto/alvo --output-file /caminho/para/arquivo_consolidado.txt
+            ```
+        *   **Se você estiver dentro do diretório do projeto que deseja consolidar:**
+            ```sh
+            python /caminho/para/domtech-forger/src/domtech_forger/main.py --consolidate --source-directory . --output-file ./meu_projeto_consolidado.txt
+            ```
     *Obs: Uma forma mais avançada seria adicionar a pasta do `domtech-forger` ao seu `PATH` do sistema para poder chamá-lo de qualquer lugar.*
 
 ## Licença

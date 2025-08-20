@@ -1,4 +1,8 @@
-# Este arquivo foi gerado/atualizado pelo DomTech Forger em 2025-08-20 00:35:46
+## Arquivo: src/domtech_forger/__init__.py
+# Este arquivo pode ficar vazio. Ele serve para que o Python trate o diretório 'domtech_forger' como um pacote.
+
+---
+## Arquivo: src/domtech_forger/main.py
 
 import os
 import re
@@ -310,3 +314,147 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+---
+## Arquivo: .gitignore
+# Ambientes virtuais
+venv/
+.venv/
+env/
+
+# Arquivos de cache do Python
+__pycache__/
+*.pyc
+
+# Arquivos de IDE
+.vscode/
+.idea/
+
+# Arquivos de dependências e build
+dist/
+build/
+*.egg-info/
+
+---
+## Arquivo: LICENSE
+MIT License
+
+Copyright (c) 2025 Dom Tech Solutions
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+## Arquivo: PROMPT_TEMPLATE.md
+# Prompt Template para Geração de Código Compatível com o DomTech Forger
+
+Use o seguinte template ao instruir um Large Language Model (LLM) para gerar o código-fonte de um projeto completo em um único bloco de texto. Isso garantirá que a saída seja compatível com a ferramenta de automação `DomTech Forger`.
+
+O **DomTech Forger** também pode gerar este formato a partir de um projeto existente utilizando a funcionalidade `--consolidate`. Essa saída pode ser diretamente usada como contexto para seu LLM.
+
+## Template do Prompt
+
+"Por favor, gere a estrutura completa de arquivos para o projeto [NOME DO PROJETO]. A saída deve ser um único bloco de código. Cada arquivo deve ser precedido por um cabeçalho no formato `## Arquivo: caminho/completo/do/arquivo.ext` e o conteúdo de cada arquivo deve ser separado por uma linha contendo apenas `---`.
+
+Se houver uma mensagem de commit sugerida, ela deve estar em seu próprio bloco, precedida por `## Mensagem de Commit:` e separada por `---`.
+
+**Exemplo de Estrutura:**
+
+Arquivo: src/main.py
+print("Olá, Mundo!")
+
+Arquivo: README.md
+Meu Projeto
+Este é um projeto de exemplo.
+
+Mensagem de Commit:
+feat: cria estrutura inicial do projeto
+
+Adiciona os arquivos main.py e README.md para a configuração inicial do projeto.
+
+"
+---
+## Arquivo: README.md
+# DomTech Forger
+
+**DomTech Forger** é uma ferramenta de linha de comando em Python projetada para automatizar a criação e atualização de projetos de software. Ele lê um único arquivo de texto contendo o código-fonte de múltiplos arquivos e os distribui na estrutura de diretórios correta, além de, opcionalmente, fazer o commit das alterações no Git.
+
+Este projeto nasceu para acelerar o desenvolvimento iterativo, especialmente ao colaborar com Large Language Models (LLMs). É uma ferramenta da **Dom Tech Solutions**.
+
+## Funcionalidades
+
+*   Cria automaticamente a estrutura de diretórios em um diretório de destino especificado.
+*   Distribui o código-fonte para os arquivos corretos a partir de um único arquivo de origem (`--apply`).
+*   **Consolida um projeto existente** em um único arquivo de texto, pronto para contextualizar LLMs (`--consolidate`).
+*   **Adiciona um carimbo de data/hora** em cada arquivo modificado para controle de versão.
+*   **Protege arquivos sensíveis** e de configuração (como `.env` e `PROMPT_TEMPLATE.md`) de serem sobrescritos.
+*   Opcionalmente, faz o `git commit` das alterações no repositório de destino com uma mensagem extraída do próprio arquivo de origem.
+
+## Instalação e Uso
+
+1.  **Clone o repositório do DomTech Forger:**
+    ```sh
+    git clone [https://github.com/DomTechSolutions/domtech-forger.git](https://github.com/DomTechSolutions/domtech-forger.git)
+    ```
+
+2.  **Crie um arquivo de atualização** (ex: `politicamente_update.txt`) em qualquer lugar, seguindo o formato especificado em `PROMPT_TEMPLATE.md`.
+
+3.  **Execute o script:**
+    Execute o script `DomTech Forger`, especificando o modo de operação e os parâmetros necessários.
+
+    *   **Modo de Aplicação (`--apply`):** Para distribuir o código de um arquivo de origem para um projeto alvo.
+        *   **Para atualizar e fazer o commit (padrão):**
+            ```sh
+            python /caminho/para/domtech-forger/src/domtech_forger/main.py --apply --source-file /caminho/para/politicamente_update.txt --destination /caminho/para/seu/projeto/alvo
+            ```
+        *   **Se você estiver dentro da pasta do projeto alvo, pode simplificar:**
+            ```sh
+            python /caminho/para/domtech-forger/src/domtech_forger/main.py --apply --source-file /caminho/para/politicamente_update.txt --destination .
+            ```
+        *   **Para apenas atualizar os arquivos, sem fazer o commit:**
+            ```sh
+            python /caminho/para/domtech-forger/src/domtech_forger/main.py --apply --source-file /caminho/para/politicamente_update.txt --destination . --commit=false
+            ```
+    *   **Modo de Consolidação (`--consolidate`):** Para ler um diretório de projeto e gerar um único arquivo de saída.
+        *   **Exemplo de uso:**
+            ```sh
+            python /caminho/para/domtech-forger/src/domtech_forger/main.py --consolidate --source-directory /caminho/para/seu/projeto/alvo --output-file /caminho/para/arquivo_consolidado.txt
+            ```
+        *   **Se você estiver dentro do diretório do projeto que deseja consolidar:**
+            ```sh
+            python /caminho/para/domtech-forger/src/domtech_forger/main.py --consolidate --source-directory . --output-file ./meu_projeto_consolidado.txt
+            ```
+    *Obs: Uma forma mais avançada seria adicionar a pasta do `domtech-forger` ao seu `PATH` do sistema para poder chamá-lo de qualquer lugar.*
+
+## Licença
+
+Este projeto é licenciado sob a Licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+
+---
+## Mensagem de Commit:
+feat: Implementa funcionalidade de consolidação de projeto e atualiza documentação
+
+Adiciona um novo modo `--consolidate` para o DomTech Forger, permitindo que o projeto leia um diretório de software existente e gere um arquivo único formatado para ser usado como entrada em LLMs.
+
+Esta funcionalidade inclui:
+- Travessia recursiva de diretórios.
+- Filtragem de arquivos e diretórios irrelevantes (baseado em `.gitignore` e padrões comuns).
+- Remoção de watermarks do próprio Forger para um contexto limpo.
+- Estruturação da saída no formato especificado.
+
+Além disso, foram atualizados o `README.md` para documentar o novo modo de uso e o `PROMPT_TEMPLATE.md` para destacar a utilidade da saída consolidada como insumo para modelos de linguagem. A lógica de exclusão de arquivos internos do Forger foi refatorada para ser baseada em um array configurável.

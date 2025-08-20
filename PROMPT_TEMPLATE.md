@@ -1,6 +1,10 @@
+<!-- Este arquivo foi gerado/atualizado pelo DomTech Forger em 2025-08-20 00:35:46 -->
+
 # Prompt Template para Geração de Código Compatível com o DomTech Forger
 
 Use o seguinte template ao instruir um Large Language Model (LLM) para gerar o código-fonte de um projeto completo em um único bloco de texto. Isso garantirá que a saída seja compatível com a ferramenta de automação `DomTech Forger`.
+
+O **DomTech Forger** também pode gerar este formato a partir de um projeto existente utilizando a funcionalidade `--consolidate`. Essa saída pode ser diretamente usada como contexto para seu LLM.
 
 ## Template do Prompt
 
@@ -10,23 +14,16 @@ Se houver uma mensagem de commit sugerida, ela deve estar em seu próprio bloco,
 
 **Exemplo de Estrutura:**
 
-```
-## Arquivo: src/main.py
-
+Arquivo: src/main.py
 print("Olá, Mundo!")
 
----
-## Arquivo: README.md
-
-# Meu Projeto
-
+Arquivo: README.md
+Meu Projeto
 Este é um projeto de exemplo.
 
----
-## Mensagem de Commit:
-
+Mensagem de Commit:
 feat: cria estrutura inicial do projeto
 
-Adiciona os arquivos `main.py` e `README.md` para a configuração inicial do projeto.
-```
+Adiciona os arquivos main.py e README.md para a configuração inicial do projeto.
+
 "
